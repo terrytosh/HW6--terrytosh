@@ -77,6 +77,92 @@ class Dlist {
  *ADD  Member function implementations here
  ***************************************/
 
+ //Default constructor
+ template <class T>
+ Dlist<T>::Dlist() {
+   MakeEmpty();
+   first = nullptr;
+   last = nullptr;
+ }
+
+//Copy constructor
+ template <class T>
+ Dlist<T>::Dlist(const Dlist &l) {
+   CopyAll(l);
+ }
+
+ //Assignment operator
+ template <class T>
+ Dlist<T>::Dlist &operator=(const Dlist &l) {
+
+ }
+
+//Utility methods
+template <class T>
+void Dlist<T>::MakeEmpty() {
+
+}
+
+template <class T>
+void Dlist<T>::CopyAll(const Dlist &l) {
+  if (l.first == nullptr) {
+    first = nullptr;
+    last = nullptr;
+  }
+  else {
+    first = new node(l.head);
+    node *temp = new node();
+    std::cout << temp->o << std::endl;
+    //while (l.first != nullptr) {
+
+    //}
+  }
+}
+
+ template <class T>
+ void Dlist<T>::RemoveAll() {
+   while (first != nullptr) {
+     node *toDelete = first;
+     first = first->next;
+     delete toDelete;
+   }
+   first = nullptr;
+   last = nullptr;
+ }
+
+//Class methods
+ template <class T>
+ bool Dlist<T>::IsEmpty() const {
+   if (first == nullptr) {
+     return true;
+   }
+   return false;
+ }
+
+ template <class T>
+ void Dlist<T>::InsertFront(const T &o) {
+  node *newNode = new node;
+  newNode->o = o;
+  newNode->prev = nullptr;
+  if (IsEmpty()) {
+    newNode->next = nullptr;
+    first = newNode;
+    last = newNode;
+   }
+   else {
+     newNode->next = first;
+     first->prev = newNode;
+     first = newNode;
+   }
+ }
+ 
+ //Destructor
+ template <class T>
+ Dlist<T>::~Dlist() {
+   RemoveAll();
+   delete first;
+   delete last;
+ }
 
 /* this must be at the end of the file */
 #endif /* __DLIST_H__ */
