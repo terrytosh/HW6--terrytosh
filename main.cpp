@@ -3,23 +3,25 @@
 
 int main() {
   std::cout << "Hello World!\n";
-  Dlist<int> catsweb; //records are big, so store pointer
+  Dlist<int*> catsweb; //records are big, so store pointer
+  int *l = new int;
+  *l = 5;
   if (catsweb.IsEmpty()) {
     std::cout << "Empty\n";
   }
   else {
     std::cout << "Not empty\n";
   }
-  catsweb.InsertFront(5);
+  catsweb.InsertFront(l);
   if (catsweb.IsEmpty()) {
     std::cout << "Empty\n";
   }
   else {
     std::cout << "Not empty\n";
   }
-
-  Dlist<int> copyList(catsweb);
-  if (copyList.IsEmpty()) {
+  *l = 10;
+  catsweb.InsertBack(l);
+  if (catsweb.IsEmpty()) {
     std::cout << "Empty\n";
   }
   else {

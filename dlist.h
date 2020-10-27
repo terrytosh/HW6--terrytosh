@@ -88,35 +88,30 @@ class Dlist {
 //Copy constructor
  template <class T>
  Dlist<T>::Dlist(const Dlist &l) {
-   CopyAll(l);
+   //copy to l, delete original list
  }
 
  //Assignment operator
  template <class T>
- Dlist<T>::Dlist &operator=(const Dlist &l) {
-
+ Dlist<T>& Dlist<T>::operator=(const Dlist &l) {
+   //copy to l, original list unaffected
  }
 
 //Utility methods
 template <class T>
 void Dlist<T>::MakeEmpty() {
-
+  while (first != nullptr) {
+     node *toDelete = first;
+     first = first->next;
+     delete toDelete;
+   }
+   first = nullptr;
+   last = nullptr;
 }
 
 template <class T>
 void Dlist<T>::CopyAll(const Dlist &l) {
-  if (l.first == nullptr) {
-    first = nullptr;
-    last = nullptr;
-  }
-  else {
-    first = new node(l.head);
-    node *temp = new node();
-    std::cout << temp->o << std::endl;
-    //while (l.first != nullptr) {
 
-    //}
-  }
 }
 
  template <class T>
@@ -126,8 +121,8 @@ void Dlist<T>::CopyAll(const Dlist &l) {
      first = first->next;
      delete toDelete;
    }
-   first = nullptr;
-   last = nullptr;
+   delete first;
+   delete last;
  }
 
 //Class methods
@@ -155,13 +150,28 @@ void Dlist<T>::CopyAll(const Dlist &l) {
      first = newNode;
    }
  }
+
+ template <class T>
+ void Dlist<T>::InsertBack(const T &o) {
+   node *newNode = new node;
+   newNode->o = o;
+   newNode->next = nullptr;
+   if (IsEmpty()) {
+     newNode->prev = nullptr;
+     first = newNode;
+     last = newNode;
+   }
+   else {
+     newNode->prev = last;
+     last->next = newNode;
+     last = newNode;
+   }
+ }
  
  //Destructor
  template <class T>
  Dlist<T>::~Dlist() {
    RemoveAll();
-   delete first;
-   delete last;
  }
 
 /* this must be at the end of the file */

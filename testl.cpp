@@ -25,11 +25,11 @@ int main() {
   // do something with "catsweb"
 
   // don't forget to delete objects on the heap
-  while ( !catsweb.IsEmpty() ) {
+  /*while ( !catsweb.IsEmpty() ) {
     Record *r = catsweb.RemoveFront();
     cout << r->uniqname << endl;
     delete r;
-  }
+  }*/
 
   return 0;
 }
