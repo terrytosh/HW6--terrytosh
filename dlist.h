@@ -54,7 +54,7 @@ class Dlist {
 
   node   *first; // The pointer to the first node (0 if none)
   node   *last;  // The pointer to the last node (0 if none)
-  //How is this different than the doubly linked list in class?
+  //How us this different than the doubly linked list in class?
 
   // Utility methods
 
@@ -78,28 +78,23 @@ class Dlist {
  ***************************************/
 
  //Default constructor
- template <class T>
- Dlist<T>::Dlist() {
-   while (first != nullptr) {
-     node *toDelete = first;
-     first = first->next;
-     delete toDelete;
-   }
-   first = nullptr;
-   last = nullptr;
- }
+template <class T>
+Dlist<T>::Dlist() {
+  first = nullptr;
+  last = nullptr;
+}
 
 //Copy constructor
- template <class T>
- Dlist<T>::Dlist(const Dlist &l) {
-   //copy to l, delete original list
- }
+template <class T>
+Dlist<T>::Dlist(const Dlist &l) {
+  //copy to l, delete original list
+}
 
- //Assignment operator
- template <class T>
- Dlist<T>& Dlist<T>::operator=(const Dlist &l) {
-   //copy to l, original list unaffected
- }
+//Assignment operator
+template <class T>
+Dlist<T>& Dlist<T>::operator=(const Dlist &l) {
+  //copy to l, original list unaffected
+}
 
 //Utility methods
 template <class T>
@@ -109,6 +104,8 @@ void Dlist<T>::MakeEmpty() {
      first = first->next;
      delete toDelete;
    }
+  first = nullptr;
+  last = nullptr;
 }
 
 template <class T>
@@ -116,28 +113,23 @@ void Dlist<T>::CopyAll(const Dlist &l) {
 
 }
 
- template <class T>
- void Dlist<T>::RemoveAll() {
-   while (first != nullptr) {
-     node *toDelete = first;
-     first = first->next;
-     delete toDelete;
-   }
-   delete first;
-   delete last;
- }
+template <class T>
+void Dlist<T>::RemoveAll() {
+  while (first != nullptr) {
+    node *toDelete = first;
+    first = first->next;
+    delete toDelete;
+  }
+}
 
 //Class methods
- template <class T>
- bool Dlist<T>::IsEmpty() const {
-   if (first == nullptr) {
-     return true;
-   }
-   return false;
- }
+template <class T>
+bool Dlist<T>::IsEmpty() const {
+  return (first == nullptr && last == nullptr);
+}
 
- template <class T>
- void Dlist<T>::InsertFront(const T &o) {
+template <class T>
+void Dlist<T>::InsertFront(const T &o) {
   node *newNode = new node;
   newNode->o = o;
   newNode->prev = nullptr;
@@ -153,39 +145,52 @@ void Dlist<T>::CopyAll(const Dlist &l) {
    }
  }
 
- template <class T>
- void Dlist<T>::InsertBack(const T &o) {
-   node *newNode = new node;
-   newNode->o = o;
-   newNode->next = nullptr;
-   if (IsEmpty()) {
-     newNode->prev = nullptr;
-     first = newNode;
-     last = newNode;
-   }
-   else {
-     newNode->prev = last;
-     last->next = newNode;
-     last = newNode;
-   }
- }
+template <class T>
+void Dlist<T>::InsertBack(const T &o) {
+  node *newNode = new node;
+  newNode->o = o;
+  newNode->next = nullptr;
+  if (IsEmpty()) {
+    newNode->prev = nullptr;
+    first = newNode;
+    last = newNode;
+  }
+  else {
+    newNode->prev = last;
+    last->next = newNode;
+    last = newNode;
+  }
+}
 
 template <class T>
 T Dlist<T>::RemoveFront() {
-  if(IsEmpty()) {
-    throw "Empty list can't call Dlist<T>::RemoveFront()";
+  if (IsEmpty()) {
+    emptyList e;
+    throw e;
   }
-  else{
-    node *front = first;
-    first = first->next;
-    return front;
+  else {
+    node *newHead = first->next;
+    node *toReturn = first;
+    toReturn->next = nullptr;
+    toReturn->prev = nullptr;
+    if (newHead == nullptr) {
+      first = nullptr;
+      last = nullptr;
+    }
+    else {
+      first = newHead;
+      first->prev = nullptr;
+    }
+    return toReturn->o;
   }
 }
  
  //Destructor
  template <class T>
  Dlist<T>::~Dlist() {
-   RemoveAll();
+  RemoveAll();
+  delete first;
+  delete last;
  }
 
 /* this must be at the end of the file */

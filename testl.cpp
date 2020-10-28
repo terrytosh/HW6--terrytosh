@@ -16,20 +16,60 @@ int main() {
 
   Dlist<Record*> catsweb; //records are big, so store pointer
 
-  Record* p = new Record;
+  Record *p = new Record;
   p->name = "Andrew DeOrio";
   p->uniqname = "awdeorio";
   p->job = FACULTY;
-  catsweb.InsertFront(p);
+
+  Record *l = new Record;
+  l->name = "Terry";
+  l->uniqname = "tbear";
+  l->job = STAFF;
+
+  if (catsweb.IsEmpty()) {
+    std::cout << "Empty\n";
+  }
+  else {
+    std::cout << "Not empty\n";
+  }
+  catsweb.InsertBack(p);
+  if (catsweb.IsEmpty()) {
+    std::cout << "Empty\n";
+  }
+  else {
+    std::cout << "Not empty\n";
+  }
+
+  catsweb.InsertFront(l);
+  Record *r = catsweb.RemoveFront();
+  cout << r->uniqname << endl;
+  delete r;
+  if (catsweb.IsEmpty()) {
+    std::cout << "Empty\n";
+  }
+  else {
+    std::cout << "Not empty\n";
+  }
+  r = catsweb.RemoveFront();
+  cout << r->uniqname << endl;
+  delete r;
+  if (catsweb.IsEmpty()) {
+    std::cout << "Empty\n";
+  }
+  else {
+    std::cout << "Not empty\n";
+  }
+
+  r = catsweb.RemoveFront();
 
   // do something with "catsweb"
 
   // don't forget to delete objects on the heap
-  while ( !catsweb.IsEmpty() ) {
+  /*while ( !catsweb.IsEmpty() ) {
     Record *r = catsweb.RemoveFront();
     cout << r->uniqname << endl;
     delete r;
-  }
+  }*/
 
   return 0;
 }

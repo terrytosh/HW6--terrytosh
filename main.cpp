@@ -27,5 +27,4 @@ int main() {
   else {
     std::cout << "Not empty\n";
   }*/
-  return 0;
 }
