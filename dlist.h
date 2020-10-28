@@ -54,7 +54,7 @@ class Dlist {
 
   node   *first; // The pointer to the first node (0 if none)
   node   *last;  // The pointer to the last node (0 if none)
-  //How us this different than the doubly linked list in class?
+  //How is this different than the doubly linked list in class?
 
   // Utility methods
 
@@ -80,7 +80,11 @@ class Dlist {
  //Default constructor
  template <class T>
  Dlist<T>::Dlist() {
-   MakeEmpty();
+   while (first != nullptr) {
+     node *toDelete = first;
+     first = first->next;
+     delete toDelete;
+   }
    first = nullptr;
    last = nullptr;
  }
@@ -105,8 +109,6 @@ void Dlist<T>::MakeEmpty() {
      first = first->next;
      delete toDelete;
    }
-   first = nullptr;
-   last = nullptr;
 }
 
 template <class T>
@@ -167,6 +169,18 @@ void Dlist<T>::CopyAll(const Dlist &l) {
      last = newNode;
    }
  }
+
+template <class T>
+T Dlist<T>::RemoveFront() {
+  if(IsEmpty()) {
+    throw "Empty list can't call Dlist<T>::RemoveFront()";
+  }
+  else{
+    node *front = first;
+    first = first->next;
+    return front;
+  }
+}
  
  //Destructor
  template <class T>
