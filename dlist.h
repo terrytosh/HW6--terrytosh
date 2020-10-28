@@ -110,7 +110,14 @@ void Dlist<T>::MakeEmpty() {
 
 template <class T>
 void Dlist<T>::CopyAll(const Dlist &l) {
-
+  
+  while (l != nullptr) {
+    node *copyNode = new node;
+    copyNode->next = l->next;
+    copyNode->prev = l->prev;
+    copyNode->o = l->o;
+    l = l->next;
+  }
 }
 
 template <class T>
