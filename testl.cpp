@@ -41,7 +41,7 @@ int main() {
   }
 
   catsweb.InsertFront(l);
-  Record *r = catsweb.RemoveFront();
+  Record *r = catsweb.RemoveBack();
   cout << r->uniqname << endl;
   delete r;
   if (catsweb.IsEmpty()) {
@@ -50,7 +50,7 @@ int main() {
   else {
     std::cout << "Not empty\n";
   }
-  r = catsweb.RemoveFront();
+  r = catsweb.RemoveBack();
   cout << r->uniqname << endl;
   delete r;
   if (catsweb.IsEmpty()) {
@@ -60,7 +60,7 @@ int main() {
     std::cout << "Not empty\n";
   }
 
-  r = catsweb.RemoveFront();
+  r = catsweb.RemoveBack();
 
   // do something with "catsweb"
 

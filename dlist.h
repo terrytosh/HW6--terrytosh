@@ -184,6 +184,29 @@ T Dlist<T>::RemoveFront() {
     return toReturn->o;
   }
 }
+
+template <class T>
+T Dlist<T>::RemoveBack() {
+  if (IsEmpty()) {
+    emptyList e;
+    throw e;
+  }
+  else {
+    node *newTail = last->prev;
+    node *toReturn = last;
+    toReturn->next = nullptr;
+    toReturn->prev = nullptr;
+    if (newTail == nullptr) {
+      first = nullptr;
+      last = nullptr;
+    }
+    else {
+      last = newTail;
+      last->next = nullptr;
+    }
+    return toReturn->o;
+  }
+}
  
  //Destructor
  template <class T>
