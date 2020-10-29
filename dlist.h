@@ -95,7 +95,7 @@ template <class T>
 Dlist<T>& Dlist<T>::operator=(const Dlist &l) {
   //create new Dlist as copy of l and return it
   RemoveAll();
-  CopyAll;
+  CopyAll(l);
 }
 
 //Utility methods
