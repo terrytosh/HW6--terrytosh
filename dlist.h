@@ -94,8 +94,8 @@ Dlist<T>::Dlist(const Dlist &l) {
 template <class T>
 Dlist<T>& Dlist<T>::operator=(const Dlist &l) {
   //create new Dlist as copy of l and return it
-  Dlist<T> *toReturn(l);
-  return toReturn;
+  CopyAll(l);
+  return l;
 }
 
 //Utility methods
