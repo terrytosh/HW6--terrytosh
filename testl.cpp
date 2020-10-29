@@ -41,7 +41,7 @@ int main() {
   }
   catsweb.InsertFront(l);
 
-  Dlist<Record*> copy(catsweb);
+  Dlist<Record*> copy = catsweb;
 
   // do something with "catsweb"
 
