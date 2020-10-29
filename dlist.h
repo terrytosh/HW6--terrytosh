@@ -94,8 +94,9 @@ Dlist<T>::Dlist(const Dlist &l) {
 template <class T>
 Dlist<T>& Dlist<T>::operator=(const Dlist &l) {
   //create new Dlist as copy of l and return it
-  CopyAll(l);
   RemoveAll();
+  CopyAll(l);
+  return *this;
 }
 
 //Utility methods
@@ -114,12 +115,10 @@ template <class T>
 void Dlist<T>::CopyAll(const Dlist &l) {
   first = nullptr;
   last = nullptr;
-  if (l.first) {
-    first = new node(*l.first);
-    last = first;
-    while (last->next != nullptr) {
-      last = last->next;
-    }
+  node *temp = l.first;
+  while (temp != nullptr) {
+    InsertBack(temp->o);
+    temp = temp->next;
   }
 }
 

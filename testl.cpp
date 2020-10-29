@@ -14,54 +14,40 @@ struct Record {
 
 int main() {
 
-  Dlist<Record*> catsweb; //records are big, so store pointer
+  Dlist<Record*> dlist1; 
 
-  Record *p = new Record;
-  p->name = "Andrew DeOrio";
-  p->uniqname = "awdeorio";
-  p->job = FACULTY;
+  Record *r1 = new Record;
+  r1->name = "Andrew DeOrio";
+  r1->uniqname = "awdeorio";
+  r1->job = FACULTY;
 
-  Record *l = new Record;
-  l->name = "Terry";
-  l->uniqname = "tbear";
-  l->job = STAFF;
+  Record *r2 = new Record;
+  r2->name = "Terry";
+  r2->uniqname = "tbear";
+  r2->job = STAFF;
 
-  if (catsweb.IsEmpty()) {
-    std::cout << "Empty\n";
-  }
-  else {
-    std::cout << "Not empty\n";
-  }
-  catsweb.InsertBack(p);
-  if (catsweb.IsEmpty()) {
-    std::cout << "Empty\n";
-  }
-  else {
-    std::cout << "Not empty\n";
-  }
-  catsweb.InsertFront(l);
+  Record *r3 = new Record;
+  r3->name = "jimmy";
+  r3->uniqname = "jimbo";
+  r3->job = STUDENT;
 
-  Dlist<Record*> copy = catsweb;
+  dlist1.InsertFront(r1);
+  dlist1.InsertFront(r2);
+  dlist1.InsertFront(r3);
 
-  // do something with "catsweb"
+  Dlist<Record*> copy(dlist1);
 
-  // don't forget to delete objects on the heap
-  while ( !catsweb.IsEmpty() ) {
-    Record *r = catsweb.RemoveFront();
-    cout << r->uniqname << endl;
+  while(!dlist1.IsEmpty()) {
+    Record *r = dlist1.RemoveFront();
+    cout << r->uniqname << "\n";
     delete r;
   }
-  try {
-    Record *temp = catsweb.RemoveFront();
-  }
-  catch (emptyList e) {
-    cout << "Can't remove from empty list\n";
-  }
-  while ( !copy.IsEmpty() ) {
+  while(!copy.IsEmpty()) {
     Record *r = copy.RemoveFront();
-    cout << r->uniqname << endl;
+    cout << r->uniqname << "\n";
     delete r;
   }
+
 
   return 0;
 }
