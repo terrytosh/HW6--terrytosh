@@ -77,7 +77,7 @@ class Dlist {
  *ADD  Member function implementations here
  ***************************************/
 
- //Default constructor
+//Default constructor
 template <class T>
 Dlist<T>::Dlist() {
   first = nullptr;
@@ -87,13 +87,13 @@ Dlist<T>::Dlist() {
 //Copy constructor
 template <class T>
 Dlist<T>::Dlist(const Dlist &l) {
-  //copy to l, delete original list
+  CopyAll(l);
 }
 
 //Assignment operator
 template <class T>
 Dlist<T>& Dlist<T>::operator=(const Dlist &l) {
-  //copy to l, original list unaffected
+  //create new Dlist as copy of l and return it
 }
 
 //Utility methods
@@ -110,13 +110,14 @@ void Dlist<T>::MakeEmpty() {
 
 template <class T>
 void Dlist<T>::CopyAll(const Dlist &l) {
-  
-  while (l != nullptr) {
-    node *copyNode = new node;
-    copyNode->next = l->next;
-    copyNode->prev = l->prev;
-    copyNode->o = l->o;
-    l = l->next;
+  first = nullptr;
+  last = nullptr;
+  if (l.first) {
+    first = new node(*l.first);
+    last = first;
+    while (last->next != nullptr) {
+      last = last->next;
+    }
   }
 }
 

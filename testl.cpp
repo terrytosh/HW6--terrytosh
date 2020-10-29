@@ -39,37 +39,29 @@ int main() {
   else {
     std::cout << "Not empty\n";
   }
-
   catsweb.InsertFront(l);
-  Record *r = catsweb.RemoveBack();
-  cout << r->uniqname << endl;
-  delete r;
-  if (catsweb.IsEmpty()) {
-    std::cout << "Empty\n";
-  }
-  else {
-    std::cout << "Not empty\n";
-  }
-  r = catsweb.RemoveBack();
-  cout << r->uniqname << endl;
-  delete r;
-  if (catsweb.IsEmpty()) {
-    std::cout << "Empty\n";
-  }
-  else {
-    std::cout << "Not empty\n";
-  }
 
-  r = catsweb.RemoveBack();
+  Dlist<Record*> copy(catsweb);
 
   // do something with "catsweb"
 
   // don't forget to delete objects on the heap
-  /*while ( !catsweb.IsEmpty() ) {
+  while ( !catsweb.IsEmpty() ) {
     Record *r = catsweb.RemoveFront();
     cout << r->uniqname << endl;
     delete r;
-  }*/
+  }
+  try {
+    Record *temp = catsweb.RemoveFront();
+  }
+  catch (emptyList e) {
+    cout << "Can't remove from empty list\n";
+  }
+  while ( !copy.IsEmpty() ) {
+    Record *r = copy.RemoveFront();
+    cout << r->uniqname << endl;
+    delete r;
+  }
 
   return 0;
 }
