@@ -35,17 +35,20 @@ int main() {
   dlist1.InsertFront(r2);
   dlist1.InsertFront(r3);
 
-  Dlist<Record*> copy = dlist1;
+  Dlist<Record*> copy(dlist1);
+  Dlist<Record*> copy2 = copy;
 
   while(!dlist1.IsEmpty()) {
     Record *r = dlist1.RemoveFront();
     cout << r->uniqname << "\n";
-    delete r;
   }
   while(!copy.IsEmpty()) {
     Record *r = copy.RemoveFront();
     cout << r->uniqname << "\n";
-    delete r;
+  }
+  while(!copy2.IsEmpty()) {
+    Record *r = copy2.RemoveFront();
+    cout << r->uniqname << "\n";
   }
 
   return 0;

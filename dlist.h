@@ -80,32 +80,29 @@ class Dlist {
 //Default constructor
 template <class T>
 Dlist<T>::Dlist() {
-  first = nullptr;
-  last = nullptr;
+  MakeEmpty();
 }
 
 //Copy constructor
 template <class T>
 Dlist<T>::Dlist(const Dlist &l) {
+  MakeEmpty();
   CopyAll(l);
 }
 
 //Assignment operator
 template <class T>
 Dlist<T>& Dlist<T>::operator=(const Dlist &l) {
-  RemoveAll();
-  CopyAll(l);
+  if (this != &l) {
+    RemoveAll();
+    CopyAll(l);
+  }
   return *this;
 }
 
 //Utility methods
 template <class T>
 void Dlist<T>::MakeEmpty() {
-  while (first != nullptr) {
-     node *toDelete = first;
-     first = first->next;
-     delete toDelete;
-   }
   first = nullptr;
   last = nullptr;
 }
@@ -128,6 +125,7 @@ void Dlist<T>::RemoveAll() {
     first = first->next;
     delete toDelete;
   }
+  MakeEmpty();
 }
 
 //Class methods
@@ -220,8 +218,6 @@ T Dlist<T>::RemoveBack() {
  template <class T>
  Dlist<T>::~Dlist() {
   RemoveAll();
-  delete first;
-  delete last;
  }
 
 /* this must be at the end of the file */
