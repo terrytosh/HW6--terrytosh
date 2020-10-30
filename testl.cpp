@@ -35,7 +35,7 @@ int main() {
   dlist1.InsertFront(r2);
   dlist1.InsertFront(r3);
 
-  Dlist<Record*> copy(dlist1);
+  Dlist<Record*> copy = dlist1;
 
   while(!dlist1.IsEmpty()) {
     Record *r = dlist1.RemoveFront();
@@ -47,7 +47,6 @@ int main() {
     cout << r->uniqname << "\n";
     delete r;
   }
-
 
   return 0;
 }

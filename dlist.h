@@ -93,7 +93,6 @@ Dlist<T>::Dlist(const Dlist &l) {
 //Assignment operator
 template <class T>
 Dlist<T>& Dlist<T>::operator=(const Dlist &l) {
-  //create new Dlist as copy of l and return it
   RemoveAll();
   CopyAll(l);
   return *this;
