@@ -157,7 +157,10 @@ int main() {
 bool isValidDigit(std::string str) {
   bool flag = true;
   bool contains = false;
-  if (str.length() > 1) {
+  if (int(str[0]) == 45) {
+    flag = false;
+  }
+  else if (str.length() > 1) {
     if (str[str.length() - 1] == '.'){
       flag = false;
     }
@@ -231,8 +234,8 @@ bool canDivide(Dlist<std::string> stack) {
 std::string add(Dlist<std::string> &stack) {
   std::string str1 = stack.RemoveFront();
   std::string str2 = stack.RemoveFront();
-  float num1 = std::stoi(str1);
-  float num2 = std::stoi(str2);
+  float num1 = std::stof(str1);
+  float num2 = std::stof(str2);
   float sum = num1 + num2;
   //std::cout << sum << "\n";
   return std::to_string(sum);
@@ -241,8 +244,8 @@ std::string add(Dlist<std::string> &stack) {
 std::string subtract(Dlist<std::string> &stack) {
   std::string str1 = stack.RemoveFront();
   std::string str2 = stack.RemoveFront();
-  float num1 = std::stoi(str1);
-  float num2 = std::stoi(str2);
+  float num1 = std::stof(str1);
+  float num2 = std::stof(str2);
   float difference = num2 - num1;
   //std::cout << difference << "\n";
   return std::to_string(difference);
@@ -251,8 +254,8 @@ std::string subtract(Dlist<std::string> &stack) {
 std::string multiply(Dlist<std::string> &stack) {
   std::string str1 = stack.RemoveFront();
   std::string str2 = stack.RemoveFront();
-  float num1 = std::stoi(str1);
-  float num2 = std::stoi(str2);
+  float num1 = std::stof(str1);
+  float num2 = std::stof(str2);
   float product = num2 * num1;
   //std::cout << product << "\n";
   return std::to_string(product);
@@ -261,8 +264,8 @@ std::string multiply(Dlist<std::string> &stack) {
 std::string divide(Dlist<std::string> &stack) {
   std::string str1 = stack.RemoveFront();
   std::string str2 = stack.RemoveFront();
-  float num1 = std::stoi(str1);
-  float num2 = std::stoi(str2);
+  float num1 = std::stof(str1);
+  float num2 = std::stof(str2);
   float quotient = num2 / num1;
   //std::cout << quotient << "\n";
   return std::to_string(quotient);
@@ -270,7 +273,7 @@ std::string divide(Dlist<std::string> &stack) {
 
 std::string negate(Dlist<std::string> &stack) {
   std::string str = stack.RemoveFront();
-  float negate = std::stoi(str);
+  float negate = std::stof(str);
   negate = negate * -1;
   //std::cout << negate << "\n";
   return std::to_string(negate);
