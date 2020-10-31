@@ -1,6 +1,6 @@
 #ifndef __DLIST_H__
 #define __DLIST_H__
-
+//Pseudocode is commented above functions/methods/constru/destruc
 
 /***************************************
  * Do not modify the class declarations!
@@ -77,20 +77,23 @@ class Dlist {
  *ADD  Member function implementations here
  ***************************************/
 
-//Default constructor
+//Default constructor, initalize empty list
 template <class T>
 Dlist<T>::Dlist() {
   MakeEmpty();
 }
 
-//Copy constructor
+//Copy constructor, intialize empty list then copy
+//all contents of source &l to new object
 template <class T>
 Dlist<T>::Dlist(const Dlist &l) {
   MakeEmpty();
   CopyAll(l);
 }
 
-//Assignment operator
+//Assignment operator, if the current object isn't l,
+//then RemoveAll current nodes and copy all contents
+//of source &l to object, return pointer to this object
 template <class T>
 Dlist<T>& Dlist<T>::operator=(const Dlist &l) {
   if (this != &l) {
@@ -101,12 +104,16 @@ Dlist<T>& Dlist<T>::operator=(const Dlist &l) {
 }
 
 //Utility methods
+//Initialize empty list
 template <class T>
 void Dlist<T>::MakeEmpty() {
   first = nullptr;
   last = nullptr;
 }
 
+//Initalize empty list, set a temp node = l.first
+//while (temp): insert new node at the back of the list
+//and proceed to next node
 template <class T>
 void Dlist<T>::CopyAll(const Dlist &l) {
   first = nullptr;
@@ -118,6 +125,8 @@ void Dlist<T>::CopyAll(const Dlist &l) {
   }
 }
 
+//while(first): temporarily store current node,
+//advance first to next node, delete temp node
 template <class T>
 void Dlist<T>::RemoveAll() {
   while (first != nullptr) {
@@ -129,11 +138,18 @@ void Dlist<T>::RemoveAll() {
 }
 
 //Class methods
+//Return true if first && last are nullptr,
+//else return false
 template <class T>
 bool Dlist<T>::IsEmpty() const {
   return (first == nullptr && last == nullptr);
 }
 
+//Create a new node, insert it's data and set prev to nullptr
+//If empty list: set nodes next to nullptr, set first and last
+//to new node
+//Else: set new nodes next to first, set first->prev to new node
+//and set first to new node
 template <class T>
 void Dlist<T>::InsertFront(const T &o) {
   node *newNode = new node;
@@ -151,6 +167,11 @@ void Dlist<T>::InsertFront(const T &o) {
    }
  }
 
+//Create a new node, insert it's data and set next to nullptr
+//If empty list: set nodes prev to nullptr, set first and last
+//to new node
+//Else: set new nodes prev to last, set first->next to new node
+//and set last to new node
 template <class T>
 void Dlist<T>::InsertBack(const T &o) {
   node *newNode = new node;
@@ -168,6 +189,12 @@ void Dlist<T>::InsertBack(const T &o) {
   }
 }
 
+//If empty list: declare emptyList and throw the error
+//Else: declare newHead = first->next, toReturn = first,
+//and set toReturn next & prev to nullptr
+//If (newHead is nullptr): set first & last to nullptr
+//Else: set first to newHead and first->prev to nulltpr
+//Return the data in toReturn
 template <class T>
 T Dlist<T>::RemoveFront() {
   if (IsEmpty()) {
@@ -191,6 +218,12 @@ T Dlist<T>::RemoveFront() {
   }
 }
 
+//If empty list: declare emptyList and throw the error
+//Else: declare newTail = last->prev, toReturn = last,
+//and set toReturn next & prev to nullptr
+//If (newTail is nullptr): set first & last to nullptr
+//Else: set last to newTail and last->next to nulltpr
+//Return the data in toReturn
 template <class T>
 T Dlist<T>::RemoveBack() {
   if (IsEmpty()) {
@@ -215,6 +248,7 @@ T Dlist<T>::RemoveBack() {
 }
  
  //Destructor
+ //Call remove all to destroy all objects nodes
  template <class T>
  Dlist<T>::~Dlist() {
   RemoveAll();
