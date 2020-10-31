@@ -38,7 +38,7 @@ int main() {
             stack.InsertFront(sum);
           }
           else {
-            std::cout << "not enough ops\n";
+            std::cout << "Not enough operands\n";
           }
           break;
         }
@@ -50,7 +50,7 @@ int main() {
             stack.InsertFront(difference);
           }
           else {
-            std::cout << "not enough ops\n";
+            std::cout << "Not enough operands\n";
           }
           break;
         }
@@ -62,7 +62,7 @@ int main() {
             stack.InsertFront(product);
           }
           else {
-            std::cout << "not enough ops\n";
+            std::cout << "Not enough operands\n";
           }
           break;
         }
@@ -75,11 +75,11 @@ int main() {
               stack.InsertFront(quotient);
             }
             else {
-              std::cout << "Can't divide by 0\n";
+              std::cout << "Divide by zero\n";
             }
           }
           else {
-            std::cout << "not enough ops\n";
+            std::cout << "Not enough operands\n";
           }
           break;
         }
@@ -91,7 +91,7 @@ int main() {
             stack.InsertFront(neg);
           }
           else {
-            std::cout << "not enough operands\n";
+            std::cout << "Not enough operands\n";
           }
           break;
         }
@@ -103,7 +103,7 @@ int main() {
             stack.InsertFront(str);
           }
           else {
-            std::cout << "not enough operands\n";
+            std::cout << "Not enough operands\n";
           }
           break;
         }
@@ -116,7 +116,7 @@ int main() {
             stack.InsertFront(str2);
           }
           else {
-            std::cout << "not enough operands\n";
+            std::cout << "Not enough operands\n";
           }
           break;
         }
@@ -129,7 +129,7 @@ int main() {
             stack.InsertFront(formattedString);
           }
           else {
-            std::cout << "not enough operands\n";
+            std::cout << "Not enough operands\n";
           }
           break;
         }
@@ -148,7 +148,7 @@ int main() {
       }
     }
     else {
-      std::cout << "not valid\n";
+      std::cout << "Bad input\n";
     }
   }
   return 0;
