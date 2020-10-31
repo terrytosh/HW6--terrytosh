@@ -5,7 +5,8 @@
 
 bool isValidDigit(std::string str);
 bool isValidOperator(std::string str);
-bool hasEnoughOperands(Dlist<std::string> stack);
+bool hasTwoOperands(Dlist<std::string> stack);
+bool hasOneOperand(Dlist<std::string> stack);
 bool canDivide(Dlist<std::string> stack);
 std::string add(Dlist<std::string> &stack);
 std::string subtract(Dlist<std::string> &stack);
@@ -26,7 +27,7 @@ int main() {
       std::cout << "valid op\n";
       switch (str[0]) {
         case '+': {
-          if (hasEnoughOperands(stack)) {
+          if (hasTwoOperands(stack)) {
             std::cout << "perform + op\n";
             std::string sum = add(stack);
             std::cout << "sum = " << sum << "\n";
@@ -38,7 +39,7 @@ int main() {
           break;
         }
         case '-': {
-          if (hasEnoughOperands(stack)) {
+          if (hasTwoOperands(stack)) {
             std::cout << "perform - op\n";
             std::string difference = subtract(stack);
             std::cout << "difference = " << difference << "\n";
@@ -50,7 +51,7 @@ int main() {
           break;
         }
         case '*': {
-          if (hasEnoughOperands(stack)) {
+          if (hasTwoOperands(stack)) {
             std::cout << "perform * op\n";
             std::string product = multiply(stack);
             std::cout << "product = " << product << "\n";
@@ -62,7 +63,7 @@ int main() {
           break;
         }
         case '/': {
-          if (hasEnoughOperands(stack)) {
+          if (hasTwoOperands(stack)) {
             if (canDivide(stack)) {
               std::cout << "perform / op\n";
               std::string quotient = divide(stack);
@@ -78,8 +79,15 @@ int main() {
           }
           break;
         }
-        case 'n': std::cout << "perform n op\n";
+        case 'n': {
+          if (hasOneOperand(stack)) {
+            std::cout << "perform n op\n";
+          }
+          else {
+            std::cout << "not enough operands\n";
+          }
         break;
+        }
         case 'd': std::cout << "perform d op\n";
         break;
         case 'r': std::cout << "perform r op\n";
@@ -136,7 +144,7 @@ bool isValidOperator(std::string str) {
   return flag;
 }
 
-bool hasEnoughOperands(Dlist<std::string> stack) {
+bool hasTwoOperands(Dlist<std::string> stack) {
   bool flag = true;
   try {
     std::string num1 = stack.RemoveFront();
@@ -146,6 +154,17 @@ bool hasEnoughOperands(Dlist<std::string> stack) {
     catch (emptyList e) {
       flag = false;
     }
+  }
+  catch (emptyList e) {
+    flag = false;
+  }
+  return flag;
+}
+
+bool hasOneOperand(Dlist<std::string> stack) {
+  bool flag = true;
+  try {
+    std::string num1 = stack.RemoveFront();
   }
   catch (emptyList e) {
     flag = false;
