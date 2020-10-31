@@ -6,7 +6,11 @@
 bool isValidDigit(std::string str);
 bool isValidOperator(std::string str);
 bool hasEnoughOperands(Dlist<std::string> stack);
+bool canDivide(Dlist<std::string> stack);
 std::string add(Dlist<std::string> &stack);
+std::string subtract(Dlist<std::string> &stack);
+std::string multiply(Dlist<std::string> &stack);
+std::string divide(Dlist<std::string> &stack);
 
 int main() {
   Dlist<std::string> stack;
@@ -36,6 +40,9 @@ int main() {
         case '-': {
           if (hasEnoughOperands(stack)) {
             std::cout << "perform - op\n";
+            std::string difference = subtract(stack);
+            std::cout << "difference = " << difference << "\n";
+            stack.InsertFront(difference);
           }
           else {
             std::cout << "not enough ops\n";
@@ -45,6 +52,9 @@ int main() {
         case '*': {
           if (hasEnoughOperands(stack)) {
             std::cout << "perform * op\n";
+            std::string product = multiply(stack);
+            std::cout << "product = " << product << "\n";
+            stack.InsertFront(product);
           }
           else {
             std::cout << "not enough ops\n";
@@ -53,7 +63,15 @@ int main() {
         }
         case '/': {
           if (hasEnoughOperands(stack)) {
-            std::cout << "perform / op\n";
+            if (canDivide(stack)) {
+              std::cout << "perform / op\n";
+              std::string quotient = divide(stack);
+              std::cout << "quotient = " << quotient << "\n";
+              stack.InsertFront(quotient);
+            }
+            else {
+              std::cout << "Can't divide by 0\n";
+            }
           }
           else {
             std::cout << "not enough ops\n";
@@ -135,28 +153,51 @@ bool hasEnoughOperands(Dlist<std::string> stack) {
   return flag;
 }
 
+bool canDivide(Dlist<std::string> stack) {
+  bool flag = true;
+  std::string str1 = stack.RemoveFront();
+  if (str1 == "0") {
+    flag = false;
+  }
+  return flag;
+}
+
 std::string add(Dlist<std::string> &stack) {
   std::string str1 = stack.RemoveFront();
   std::string str2 = stack.RemoveFront();
-  if (str1.length() > 1 && str2.length() > 1) {
-    float num1 = std::stof(str1);
-    float num2 = std::stof(str2);
-    float sum = num1 + num2;
-    std::cout << sum << "\n";
-    return std::to_string(sum);
-  }
-  else if (str1.length() > 1 && str2.length() == 1) {
-    //str1 float, str2 int
-    float num1 = std::stof(str1);
-    float num2 = std::stof(str2);
-    float sum = num1 + num2;
-    std::cout << sum << "\n";
-    return std::to_string(sum);
-  }
-  else if (str1.length() == 1 && str2.length() > 1) {
-    //str1 int, str2, float
-  }
-  else {
-    //both ints
-  }
+  float num1 = std::stof(str1);
+  float num2 = std::stof(str2);
+  float sum = num1 + num2;
+  std::cout << sum << "\n";
+  return std::to_string(sum);
+}
+
+std::string subtract(Dlist<std::string> &stack) {
+  std::string str1 = stack.RemoveFront();
+  std::string str2 = stack.RemoveFront();
+  float num1 = std::stof(str1);
+  float num2 = std::stof(str2);
+  float difference = num2 - num1;
+  std::cout << difference << "\n";
+  return std::to_string(difference);
+}
+
+std::string multiply(Dlist<std::string> &stack) {
+  std::string str1 = stack.RemoveFront();
+  std::string str2 = stack.RemoveFront();
+  float num1 = std::stof(str1);
+  float num2 = std::stof(str2);
+  float product = num2 * num1;
+  std::cout << product << "\n";
+  return std::to_string(product);
+}
+
+std::string divide(Dlist<std::string> &stack) {
+  std::string str1 = stack.RemoveFront();
+  std::string str2 = stack.RemoveFront();
+  float num1 = std::stof(str1);
+  float num2 = std::stof(str2);
+  float quotient = num2 / num1;
+  std::cout << quotient << "\n";
+  return std::to_string(quotient);
 }
