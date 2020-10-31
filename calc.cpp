@@ -1,9 +1,12 @@
 #include "dlist.h"
 #include <iostream>
 #include<string>
+#include <cstdlib>
 
 bool isValidDigit(std::string str);
 bool isValidOperator(std::string str);
+bool hasEnoughOperands(Dlist<std::string> stack);
+std::string add(Dlist<std::string> &stack);
 
 int main() {
   Dlist<std::string> stack;
@@ -18,14 +21,45 @@ int main() {
     else if (isValidOperator(str)) {
       std::cout << "valid op\n";
       switch (str[0]) {
-        case '+': std::cout << "perform + op\n";
-        break;
-        case '-': std::cout << "perform - op\n";
-        break;
-        case '*': std::cout << "perform * op\n";
-        break;
-        case '/': std::cout << "perform / op\n";
-        break;
+        case '+': {
+          if (hasEnoughOperands(stack)) {
+            std::cout << "perform + op\n";
+            std::string sum = add(stack);
+            std::cout << "sum = " << sum << "\n";
+            stack.InsertFront(sum);
+          }
+          else {
+            std::cout << "not enough ops\n";
+          }
+          break;
+        }
+        case '-': {
+          if (hasEnoughOperands(stack)) {
+            std::cout << "perform - op\n";
+          }
+          else {
+            std::cout << "not enough ops\n";
+          }
+          break;
+        }
+        case '*': {
+          if (hasEnoughOperands(stack)) {
+            std::cout << "perform * op\n";
+          }
+          else {
+            std::cout << "not enough ops\n";
+          }
+          break;
+        }
+        case '/': {
+          if (hasEnoughOperands(stack)) {
+            std::cout << "perform / op\n";
+          }
+          else {
+            std::cout << "not enough ops\n";
+          }
+          break;
+        }
         case 'n': std::cout << "perform n op\n";
         break;
         case 'd': std::cout << "perform d op\n";
@@ -82,4 +116,47 @@ bool isValidOperator(std::string str) {
     }
   }
   return flag;
+}
+
+bool hasEnoughOperands(Dlist<std::string> stack) {
+  bool flag = true;
+  try {
+    std::string num1 = stack.RemoveFront();
+    try {
+      std::string num2 = stack.RemoveFront();
+    }
+    catch (emptyList e) {
+      flag = false;
+    }
+  }
+  catch (emptyList e) {
+    flag = false;
+  }
+  return flag;
+}
+
+std::string add(Dlist<std::string> &stack) {
+  std::string str1 = stack.RemoveFront();
+  std::string str2 = stack.RemoveFront();
+  if (str1.length() > 1 && str2.length() > 1) {
+    float num1 = std::stof(str1);
+    float num2 = std::stof(str2);
+    float sum = num1 + num2;
+    std::cout << sum << "\n";
+    return std::to_string(sum);
+  }
+  else if (str1.length() > 1 && str2.length() == 1) {
+    //str1 float, str2 int
+    float num1 = std::stof(str1);
+    float num2 = std::stof(str2);
+    float sum = num1 + num2;
+    std::cout << sum << "\n";
+    return std::to_string(sum);
+  }
+  else if (str1.length() == 1 && str2.length() > 1) {
+    //str1 int, str2, float
+  }
+  else {
+    //both ints
+  }
 }
