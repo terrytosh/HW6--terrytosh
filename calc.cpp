@@ -123,10 +123,15 @@ int main() {
         case 'p': {
           if (hasOneOperand(stack)) {
             //std::cout << "perform p op\n";
-            std::string str = stack.RemoveFront();
-            std::string formattedString = formatOutputString(str);
-            std::cout << formattedString << "\n";
-            stack.InsertFront(formattedString);
+            Dlist<std::string> temp = stack;
+            std::string str = temp.RemoveFront();
+            if (str[0] == '0') {
+              std::cout << str << "\n";
+            }
+            else {
+              //std::string formattedString = formatOutputString(str);
+              std::cout << formatOutputString(str) << "\n";
+            }
           }
           else {
             std::cout << "Not enough operands\n";
@@ -290,7 +295,14 @@ std::string duplicate(Dlist<std::string> &stack) {
 
 void printAll(Dlist<std::string> stack) {
   while(!stack.IsEmpty()) {
-    std::cout << formatOutputString(stack.RemoveFront());
+    std::string str = stack.RemoveFront();
+    if (str[0] == '0') {
+      std::cout << str;
+    }
+    else {
+      std::cout << formatOutputString(str);
+    }
+    //std::cout << formatOutputString(stack.RemoveFront());
     if(stack.IsEmpty()) {
       std::cout << "\n";
     }
