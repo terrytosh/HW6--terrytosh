@@ -126,7 +126,7 @@ int main() {
             Dlist<std::string> temp = stack;
             std::string str = temp.RemoveFront();
             if (str[0] == '0') {
-              std::cout << str << "\n";
+              std::cout << "0" << "\n";
             }
             else {
               //std::string formattedString = formatOutputString(str);
@@ -297,7 +297,7 @@ void printAll(Dlist<std::string> stack) {
   while(!stack.IsEmpty()) {
     std::string str = stack.RemoveFront();
     if (str[0] == '0') {
-      std::cout << str;
+      std::cout << "0";
     }
     else {
       std::cout << formatOutputString(str);
