@@ -3,6 +3,96 @@
 #include<string>
 #include <cstdlib>
 
+/*
+Psuedocode:
+isValidDigit():
+If (string is an operator): return true
+Else (string is valid): return false
+
+isValidOperator(): 
+Intialize a bool flag to false.
+Initalize an array of strings populated with the
+valid operators.
+for (i = 0; i < size of array; i++):
+if (current string equals op[i]): then the operator is valid so
+set flag to true. Return flag
+
+hasTwoOperands():
+Initalize a bool flag to true.
+try: pop from stack
+  try: pop again from stack
+  catch: (list is empty): set flag to false
+catch (list is empty): set flag to false
+return flag
+
+hasOneOperand():
+Initalize a bool flag to true.
+try: pop from stack
+if statement trows error, catch it and
+set flag to false.
+Return flag
+
+canDivide():
+Initalize a bool flag to true.
+Pop from temp stack and equal to str1
+If the element is a "0", set flag to false
+Return flag
+
+add():
+Pop first two elements and set them to str1 & str2
+Intialize num1 & num2 as stof(str1) & stof(str2)
+Add num1 and num2 and store in sum
+Return to_string(sum)
+
+subtract():
+Pop first two elements and set them to str1 & str2
+Intialize num1 & num2 as stof(str1) & stof(str2)
+Subtract num2 from num1 and store in difference
+Return to_string(difference)
+
+multiply():
+Pop first two elements and set them to str1 & str2
+Intialize num1 & num2 as stof(str1) & stof(str2)
+Multiply num1 and num2 and store in product
+Return to_string(product)
+
+divide():
+Pop first two elements and set them to str1 & str2
+Intialize num1 & num2 as stof(str1) & stof(str2)
+Divide num2 by num1 and store in quotient
+Return to_string(quotient)
+
+negate():
+Pop first element and set to str
+Initalize negate as stof(str)
+Multiply negate by -2
+Return to_string(negate)
+
+duplicate():
+Pop first element and set to str
+Return str
+
+formatOutputString():
+Initalize a flag bool to true, an int ctr to 0,
+and index to 0
+for (i = str.length() - 1; cont == true; i--):
+If (current character is a decimal): set cont to
+flase and index to if
+Else if (current character is a 0): set index to if
+Else: set cont to false and index to i + 1
+increment ctr
+Remove characters (index to ctr) from str
+Return str
+
+printAll():
+while (stack is not empty):
+pop from stack and set to str
+If (str == '0'): print '0' to console
+Else: print formatOutputString(str) to console
+If (stack is empty): print "\n" to console
+Else: print " " to console
+*/
+
 bool isValidDigit(std::string str);
 bool isValidOperator(std::string str);
 bool hasTwoOperands(Dlist<std::string> stack);
@@ -24,17 +114,13 @@ int main() {
   while (str != "q") {
     std::cin >> str;
     if (isValidDigit(str)) {
-      //std::cout << "valid:add to stack front\n";
       stack.InsertFront(str);
     }
     else if (isValidOperator(str)) {
-      //std::cout << "valid op\n";
       switch (str[0]) {
         case '+': {
           if (hasTwoOperands(stack)) {
-            //std::cout << "perform + op\n";
             std::string sum = add(stack);
-            //std::cout << "sum = " << sum << "\n";
             stack.InsertFront(sum);
           }
           else {
@@ -44,9 +130,7 @@ int main() {
         }
         case '-': {
           if (hasTwoOperands(stack)) {
-            //std::cout << "perform - op\n";
             std::string difference = subtract(stack);
-            //std::cout << "difference = " << difference << "\n";
             stack.InsertFront(difference);
           }
           else {
@@ -56,9 +140,7 @@ int main() {
         }
         case '*': {
           if (hasTwoOperands(stack)) {
-            //std::cout << "perform * op\n";
             std::string product = multiply(stack);
-            //std::cout << "product = " << product << "\n";
             stack.InsertFront(product);
           }
           else {
@@ -69,9 +151,7 @@ int main() {
         case '/': {
           if (hasTwoOperands(stack)) {
             if (canDivide(stack)) {
-              //std::cout << "perform / op\n";
               std::string quotient = divide(stack);
-              //std::cout << "quotient = " << quotient << "\n";
               stack.InsertFront(quotient);
             }
             else {
@@ -85,9 +165,7 @@ int main() {
         }
         case 'n': {
           if (hasOneOperand(stack)) {
-            //std::cout << "perform n op\n";
             std::string neg = negate(stack);
-            //std::cout << "negate = " << neg << "\n";
             stack.InsertFront(neg);
           }
           else {
@@ -97,7 +175,6 @@ int main() {
         }
         case 'd': {
           if (hasOneOperand(stack)) {
-            //std::cout << "perform d op\n";
             std::string str = duplicate(stack);
             stack.InsertFront(str);
             stack.InsertFront(str);
@@ -109,7 +186,6 @@ int main() {
         }
         case 'r': {
           if (hasTwoOperands(stack)) {
-            //std::cout << "perform r op\n";
             std::string str1 = stack.RemoveFront();
             std::string str2 = stack.RemoveFront();
             stack.InsertFront(str1);
@@ -122,14 +198,12 @@ int main() {
         }
         case 'p': {
           if (hasOneOperand(stack)) {
-            //std::cout << "perform p op\n";
             Dlist<std::string> temp = stack;
             std::string str = temp.RemoveFront();
             if (str[0] == '0') {
               std::cout << "0" << "\n";
             }
             else {
-              //std::string formattedString = formatOutputString(str);
               std::cout << formatOutputString(str) << "\n";
             }
           }
@@ -139,14 +213,12 @@ int main() {
           break;
         }
         case 'c': {
-          //std::cout << "perform c op\n";
           while (!stack.IsEmpty()) {
             std::string str = stack.RemoveFront();
           }
           break;
         }
         case 'a': {
-          //std::cout << "perform a op\n";
           printAll(stack);
           break;
         }
@@ -164,31 +236,6 @@ bool isValidDigit(std::string str) {
     return false;
   }
   return true;
-  bool flag = true;
-  bool contains = false;
-  if (int(str[0]) == 45) {
-    flag = false;
-  }
-  else if (str.length() > 1) {
-    if (str[str.length() - 1] == '.'){
-      flag = false;
-    }
-    else {
-      for (int i = 0; i < str.length() - 1; i ++) {
-        if (str[i] == '.') {
-          contains = true;
-        }
-      }
-      if (!contains) {
-        flag = false;
-      }
-    }
-  }
-  else if (str > "9" || str < "0"){
-    flag = false;
-  }
-
-  return flag;
 }
 
 bool isValidOperator(std::string str) {
@@ -246,7 +293,6 @@ std::string add(Dlist<std::string> &stack) {
   float num1 = std::stof(str1);
   float num2 = std::stof(str2);
   float sum = num1 + num2;
-  //std::cout << sum << "\n";
   return std::to_string(sum);
 }
 
@@ -256,7 +302,6 @@ std::string subtract(Dlist<std::string> &stack) {
   float num1 = std::stof(str1);
   float num2 = std::stof(str2);
   float difference = num2 - num1;
-  //std::cout << difference << "\n";
   return std::to_string(difference);
 }
 
@@ -266,7 +311,6 @@ std::string multiply(Dlist<std::string> &stack) {
   float num1 = std::stof(str1);
   float num2 = std::stof(str2);
   float product = num2 * num1;
-  //std::cout << product << "\n";
   return std::to_string(product);
 }
 
@@ -276,7 +320,6 @@ std::string divide(Dlist<std::string> &stack) {
   float num1 = std::stof(str1);
   float num2 = std::stof(str2);
   float quotient = num2 / num1;
-  //std::cout << quotient << "\n";
   return std::to_string(quotient);
 }
 
@@ -284,7 +327,6 @@ std::string negate(Dlist<std::string> &stack) {
   std::string str = stack.RemoveFront();
   float negate = std::stof(str);
   negate = negate * -1;
-  //std::cout << negate << "\n";
   return std::to_string(negate);
 }
 
@@ -302,7 +344,6 @@ void printAll(Dlist<std::string> stack) {
     else {
       std::cout << formatOutputString(str);
     }
-    //std::cout << formatOutputString(stack.RemoveFront());
     if(stack.IsEmpty()) {
       std::cout << "\n";
     }
